@@ -58,7 +58,7 @@ if ($_GET["pid"]) {                                                //當有網�
 
 
     <div>
-        <img src="images/<?= $row["pname_e"] ?>.png" width="100" height="100">
+        <img src="images/<?= $row["pname_e"] ?>.png" width="200" height="200">
     </div>
 
 

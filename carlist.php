@@ -1,17 +1,26 @@
 <?php
 session_start();
+if (isset($_POST["clear_session"])) {
+  unset($_SESSION["caritem"]);
+  unset($_SESSION["carlist"]);
+  echo "購物車內沒有商品!";
+  echo "<hr>";
+}else if(!isset($_SESSION["caritem"])){
+  echo "購物車內沒有商品!";
+  echo "<hr>";
+}
 //     require_once("config.php");
 //     $link = mysqli_connect($dbhost,$dbuser,$dbpass);
 //     mysqli_select_db($link,$dbname);
 //     $sqlCommand = "select * from members";
 //     $result = mysqli_query($link,$sqlCommand);
 //     while($row = mysqli_fetch_assoc($result)){
-        
+
 //         echo "mid :{$row['mid']}<br>";
 //         echo "username :{$row['username']}<br>";
 //         echo "passsword :{$row['password']}<br>";
 //         echo "<hr>";
-    
+
 //     }
 //     exit();
 // print_r($_SESSION["caritem"]);
@@ -19,12 +28,13 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Lab - index</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<style>
-/* table { 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Lab - index</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    /* table { 
   border:1px solid #000; 
   font-family: 微軟正黑體;
   font-size:16px; 
@@ -37,76 +47,86 @@ td {
   border:1px solid #000;
   padding:5px;
 }  */
-.card{
-  width: 27%; 
-  display: inline-block;
-  margin-left:3%;
-  margin-top:3%;
+    .card {
+      width: 27%;
+      display: inline-block;
+      margin-left: 3%;
+      margin-top: 3%;
 
-}
-img{
-  display: block;
-  width: 250px;
-  height: 200px;
- 
- 
+    }
 
-}
-</style>
+    img {
+      display: block;
+      width: 125px;
+      height: 100px;
+
+
+
+    }
+  </style>
 
 </head>
+
 <body>
+  <form id="form2" name="form2" method="post" action="">
+    <?php
+    if (isset($_SESSION["carlist"])) {
+      $str_sec = explode(",", $_SESSION["caritem"]);
+      for ($i = 0; $i < count($_SESSION["carlist"]); $i++) {
+        $cc = $str_sec[$i];
 
-<?php 
+        $carlist = $_SESSION["carlist"];
+        ?> <a href="Products_details.php?pid=<?= $carlist[$cc]["pid"] ?>"><img src="images/<?php echo $carlist[$cc]["pname_e"] ?>.png"></a>
+        <div class="ooo"><?php echo "商品名稱:" . $carlist[$cc]["pname"] . "<br>"; ?></div>
+        數量:<input type="number" value="<?php echo $carlist[$cc]["number"]; ?>">
 
+        <?php
 
+        // foreach($carlist[$cc] as $key=>$value){
 
-
-$str_sec = explode(",",$_SESSION["caritem"]);
-for($i=0;$i<count($_SESSION["carlist"]);$i++){
-$cc=$str_sec[$i];
-
-$carlist=$_SESSION["carlist"];
-
-?><div class="ooo"><?php echo "商品名稱:".$carlist[$cc]["pname"]."<br>";?></div>
-<div class="number1">數量:<?php echo $carlist[$cc]["number"]."<br>";?></div>
-
-<?php
-// foreach($carlist[$cc] as $key=>$value){
-
-// 	echo $key .":".$value;
-// 	echo "<br>";
-// }
-echo "<hr>";
-}
-?>
-<input type="button" value="清空所有數量" onclick="clear2()">
-<!-- <div class="card" >
-<a href="#" ><img src="images/blacktea.png" class="card-img-top" alt="..."></a>
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div> -->
+        // 	echo $key .":".$value;
+        // 	echo "<br>";
+        // }
+        echo "<hr>";
+      }
+      ?><input type="submit" name="clear_session" value="清空所有數量">
+      <?php } ?>
+                                                            
 
 
+  </form>
 
-<!-- <table>
-<tr>
-  <td rowspan="2">rowspan欄位</td>
-  <td>表格1</td></tr>
-<tr>
-  <td>表格2</td>
-</tr>
-</table> -->
+  <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <tr>
+      <td align="center" bgcolor="#CCCCCC">
+        <font color="#FFFFFF">會員系統 - 首頁</font>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="baseline">
+        <?php
+        $userName = "Guest";
+        if (isset($_SESSION["userName"])) {
+          $userName = $_SESSION["userName"];
+        }
+        if ($userName == "Guest") { ?>
+          <a href="login.php">登入</a>
+        <?php } else { ?>
+          <a href="login.php?signout=1">登出</a>
+        <?php } ?>
+        | <a href="index.php">回首頁</a>
 
-</div>
-<script>
-  function clear2(){
-    document.getElementsByClassName("number1").innerHTML = "數量:"+0;
-  }
-</script>
+
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#CCCCCC">welcome! <?php echo $userName; ?></td>
+    </tr>
+  </table>
+
+
+  <!-- </div> -->
+
 
 </body>
+
 </html>

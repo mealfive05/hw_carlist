@@ -1,6 +1,8 @@
 <?php
   session_start();
-
+  if(isset($_POST["btnHome"])){
+    header("location:index.php");
+  }
   function check($username,$password){      //當驗證通過回傳1，沒通過回傳0
   require_once("config.php");
   $link = mysqli_connect($dbhost,$dbuser,$dbpass);
@@ -10,7 +12,7 @@
   $result = mysqli_query($link,$sqlCommand);
   // while($row = mysqli_fetch_assoc($result)){
     $row = mysqli_fetch_assoc($result);
-    if($row['password']==$password)
+    if($row['password']==md5($password))
     return 1;
     else
     return 0;
@@ -74,8 +76,10 @@
       <input type="reset" name="btnReset" id="btnReset" value="重設" />
       <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
       </td>
+      
     </tr>
   </table>
+  <div>帳號:jonas、密碼:jonas</div>
 </form>
 </body>
 </html>

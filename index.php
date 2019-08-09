@@ -127,8 +127,8 @@ img{
       <?php } else{ ?>
       <a href="login.php?signout=1">登出</a>
       <?php }?>
-      | <a href="secret.php">會員專用頁</a>
-      <a href="carlist.php">查看購物車</a></td>
+
+      | <a href="carlist.php">查看購物車</a></td>
       
   </tr>
   <tr>
