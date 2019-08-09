@@ -56,9 +56,10 @@ td {
     }
 
     img {
+      margin: 1%;
       display: block;
-      width: 125px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
 
 
 
@@ -77,7 +78,8 @@ td {
 
         $carlist = $_SESSION["carlist"];
         ?> <a href="Products_details.php?pid=<?= $carlist[$cc]["pid"] ?>"><img src="images/<?php echo $carlist[$cc]["pname_e"] ?>.png"></a>
-        <div class="ooo"><?php echo "商品名稱:" . $carlist[$cc]["pname"] . "<br>"; ?></div>
+        <div ><?php echo "商品名稱:" . $carlist[$cc]["pname"] . "<br>"; ?></div>
+        <div ><?php echo "價格:" . $carlist[$cc]["price"] . "<br>"; ?></div>
         數量:<input type="number" value="<?php echo $carlist[$cc]["number"]; ?>">
 
         <?php

@@ -1,32 +1,32 @@
 <?php
 session_start();
 
-if ($_GET["pid"]) {                                                //當有網址有取到商品id時
+if ($_GET["pid"]) {//當有網址有取到商品id時
 
     $pid = $_GET["pid"];
-    require_once("config.php");                                     //引用mysql資料
+    require_once("config.php");//引用mysql資料
     $link = mysqli_connect($dbhost, $dbuser, $dbpass);
     $result = mysqli_query($link, "set names utf8");
     mysqli_select_db($link, $dbname);
-    $sqlCommand = "select * from Products where `pid`= $pid";       //取出那項商品
+    $sqlCommand = "select * from Products where `pid`= $pid";//取出那項商品
     $result = mysqli_query($link, $sqlCommand);
     $row = mysqli_fetch_assoc($result);
 
-    // echo strpos($_SESSION["caritem"], $row["pname"]);
 
-    if (isset($_POST["addcar"])) {                                                                                      //接收到"加到購物車"時
+    if (isset($_POST["addcar"])) {//當按下加入購物車時       
+                                                       //接收到"加到購物車"時
         $car_array = array("pname" => 
         $row["pname"],"pid" => $row["pid"],"amount" => $row["amount"],"pname_e" => $row["pname_e"], "price" => 
-        $row["price"], "number" => $_POST["number"]);
+        $row["price"], "number" => $_POST["number"]);//把從資料庫取到的資料放入陣列中
 
         print_r($car_array);
-        if (isset($_SESSION["carlist"])) {
-            if (strpos($_SESSION["caritem"], $row["pname"]) === false) {
-                $_SESSION["caritem"] = $_SESSION["caritem"] . "," . $car_array["pname"];
+        if (isset($_SESSION["carlist"])) {//判斷是否有購物車session
+            if (strpos($_SESSION["caritem"], $row["pname"]) === false) {//比對這項商品是否有存在在session中了
+                $_SESSION["caritem"] = $_SESSION["caritem"] . "," . $car_array["pname"];//如果沒有，把資料加到session中
                 $_SESSION["carlist"] = array_merge($_SESSION["carlist"], array($car_array["pname"] => $car_array));
             } else {
                 echo "有重複";
-                $_SESSION["carlist"][$car_array["pname"]]["number"] = $_POST["number"];
+                $_SESSION["carlist"][$car_array["pname"]]["number"] = $_POST["number"];//如果有，在session中更新該項商品數量
             }
         } else {
             if (isset($_SESSION["caritem"])) {
@@ -37,6 +37,7 @@ if ($_GET["pid"]) {                                                //當有網�
             }
         }
     }
+
 }
 
 ?>
