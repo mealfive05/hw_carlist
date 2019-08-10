@@ -1,0 +1,104 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
+--
+-- 主機: 127.0.0.1
+-- 產生時間： 2019-08-10 18:47:21
+-- 伺服器版本: 10.1.37-MariaDB
+-- PHP 版本： 7.3.1
+CREATE DATABASE `hw`;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 資料庫： `hw`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `members`
+--
+
+CREATE TABLE `members` (
+  `mid` int(11) NOT NULL,
+  `username` varchar(40) NOT NULL,
+  `password` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 資料表的匯出資料 `members`
+--
+
+INSERT INTO `members` (`mid`, `username`, `password`) VALUES
+(1, 'jonas', 'jonas'),
+(2, 'magic', 'magic');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `products`
+--
+
+CREATE TABLE `products` (
+  `pid` int(11) NOT NULL,
+  `pname` varchar(49) CHARACTER SET utf8 NOT NULL,
+  `pname_e` varchar(40) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 資料表的匯出資料 `products`
+--
+
+INSERT INTO `products` (`pid`, `pname`, `pname_e`, `amount`, `price`) VALUES
+(1, '紅茶', 'blacktea', 250, 50),
+(2, '綠茶', 'greentea', 150, 30),
+(3, '烏龍茶', 'oolongtea', 200, 40),
+(4, '四季青茶', 'seasontea', 300, 50);
+
+--
+-- 已匯出資料表的索引
+--
+
+--
+-- 資料表索引 `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`mid`);
+
+--
+-- 資料表索引 `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`pid`);
+
+--
+-- 在匯出的資料表使用 AUTO_INCREMENT
+--
+
+--
+-- 使用資料表 AUTO_INCREMENT `members`
+--
+ALTER TABLE `members`
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用資料表 AUTO_INCREMENT `products`
+--
+ALTER TABLE `products`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
